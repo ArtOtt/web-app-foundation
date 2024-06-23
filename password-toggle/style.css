@@ -1,0 +1,41 @@
+html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background-color: rgb(185, 175, 175);
+}
+
+body {
+  width: 850px;
+  height: 100vh;
+
+  margin: auto;
+  align-content: center;
+  text-align: center;
+}
+
+main {
+  height: 500px;
+  width: 500px;
+
+  align-content: center;
+  margin: 0 auto;
+}
+input {
+  padding: 0.25rem 0.2rem;
+  width: 200px;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
+  border-radius: 50px;
+  border: solid black 2px;
+}
+button {
+  padding: 0.25rem 0.9rem;
+  width: 230px;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  background-color: white;
+  letter-spacing: 0.1rem;
+  border-radius: 50px;
+  border: solid black 2px;
+}
