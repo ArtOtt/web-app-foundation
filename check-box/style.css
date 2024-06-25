@@ -1,0 +1,32 @@
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: beige;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+main {
+  display: grid;
+  grid-template-columns: auto auto;
+
+  gap: 1rem 1rem;
+
+  align-items: baseline;
+
+  padding: 10px;
+}
+
+input {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+label {
+  font-size: 2rem;
+}
