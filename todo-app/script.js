@@ -20,6 +20,9 @@ function render() {
     // create an Li Element
     const liElement = document.createElement("li");
 
+    // to find out whitch checkbox clicked
+    liElement.toDoObject = todo;
+
     // create a checkbox for Li Element
     const checkbox = document.createElement("input");
     //add a type Attribute to checkbox
@@ -62,6 +65,17 @@ btn.addEventListener("click", function () {
     //console.log(toDo);
     render();
   }
+});
+
+//check is checkbox checked
+
+list.addEventListener("change", (e) => {
+  const checkbox = e.target;
+  const liElement = checkbox.parentElement;
+  const todo = liElement.toDoObject;
+  todo.done = checkbox.checked;
+
+  localStorage.setItem("toDoItem", JSON.stringify(toDo));
 });
 
 function loadFromStorg() {
