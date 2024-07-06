@@ -1,5 +1,7 @@
 const btn = document.querySelector("button");
 const body = document.querySelector("body");
+const list = document.querySelector("#list");
+const input = document.querySelector("#input");
 
 const toDo = {
   todos: [
@@ -9,11 +11,10 @@ const toDo = {
 };
 
 function render() {
-  const list = document.querySelector("#list");
-
   // cleaning the ul
   list.innerHTML = "";
 
+  loadFromStorg();
   //put the todos from toDo in DOM
   toDo.todos.forEach((todo) => {
     // create an Li Element
@@ -35,7 +36,41 @@ function render() {
 
     //add liElement to list Element
     list.appendChild(liElement);
+
+    // load from local storage
   });
 }
 
 render();
+// add new Todo
+btn.addEventListener("click", function () {
+  //space be trimmed
+  const newToDoText = input.value.trim();
+  //checkin empty space
+  if (newToDoText != "") {
+    const newTodo = {
+      description: newToDoText,
+      done: false,
+      id: Date.now() * Math.random(),
+    };
+    // add to toDo
+    toDo.todos.push(newTodo);
+    // convert toDo in JSON
+    const jsn = JSON.stringify(toDo);
+    //Local storage
+    localStorage.setItem("toDoItem", jsn);
+    //console.log(toDo);
+    render();
+  }
+});
+
+function loadFromStorg() {
+  const storedToDo = localStorage.getItem("toDoItem");
+
+  const solo = JSON.parse(storedToDo);
+
+  if (storedToDo) {
+    // add to toDo
+    toDo.todos = solo.todos;
+  }
+}
