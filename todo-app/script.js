@@ -56,14 +56,28 @@ btn.addEventListener("click", function () {
       done: false,
       id: Date.now() * Math.random(),
     };
-    // add to toDo
-    toDo.todos.push(newTodo);
-    // convert toDo in JSON
-    const jsn = JSON.stringify(toDo);
-    //Local storage
-    localStorage.setItem("toDoItem", jsn);
-    //console.log(toDo);
-    render();
+
+    let isDuplicate = false;
+    for (let i = 0; i < toDo.todos.length; i++) {
+      if (toDo.todos[i].description === newTodo.description) {
+        isDuplicate = true;
+        break;
+      }
+    }
+    // Check for duplicate descriptions
+    if (!isDuplicate) {
+      // Add to toDo
+      toDo.todos.push(newTodo);
+
+      // Convert toDo to JSON
+      const jsn = JSON.stringify(toDo);
+
+      // Save to Local storage
+      localStorage.setItem("toDoItem", jsn);
+
+      // Render the updated list
+      render();
+    }
   }
 });
 
@@ -81,10 +95,10 @@ list.addEventListener("change", (e) => {
 function loadFromStorg() {
   const storedToDo = localStorage.getItem("toDoItem");
 
-  const solo = JSON.parse(storedToDo);
+  const readyFromStorg = JSON.parse(storedToDo);
 
   if (storedToDo) {
     // add to toDo
-    toDo.todos = solo.todos;
+    toDo.todos = readyFromStorg.todos;
   }
 }
