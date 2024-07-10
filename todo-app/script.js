@@ -2,6 +2,10 @@ const btn = document.querySelector("button");
 const body = document.querySelector("body");
 const list = document.querySelector("#list");
 const input = document.querySelector("#input");
+// Radio buttons
+const open = document.querySelector("#open");
+const all = document.querySelector("#all");
+const done = document.querySelector("#done");
 
 const toDo = {
   todos: [
@@ -11,45 +15,58 @@ const toDo = {
 };
 
 function render() {
-  // cleaning the ul
+  // Clean the ul
   list.innerHTML = "";
 
-  loadFromStorg();
-  //put the todos from toDo in DOM
-  toDo.todos.forEach((todo) => {
-    // create an Li Element
+  loadFromStorage();
+
+  // filter for done, open, all
+  let filteredTodos;
+  if (done.checked) {
+    // check if done
+    filteredTodos = toDo.todos.filter((todo) => todo.done);
+  } else if (open.checked) {
+    // check is
+    filteredTodos = toDo.todos.filter((todo) => !todo.done);
+  } else {
+    // if all selected
+    filteredTodos = toDo.todos;
+  }
+
+  // Put the todos from filteredTodos in DOM
+  filteredTodos.forEach((todo) => {
+    // Create an Li Element
     const liElement = document.createElement("li");
 
-    // to find out whitch checkbox clicked
+    // To find out which checkbox clicked
     liElement.toDoObject = todo;
 
-    // create a checkbox for Li Element
+    // Create a checkbox for Li Element
     const checkbox = document.createElement("input");
-    //add a type Attribute to checkbox
+    // Add a type Attribute to checkbox
     checkbox.type = "checkbox";
-    //add  to checked Attribute a value from toDo.todos.done
+    // Add to checked Attribute a value from toDo.todos.done
     checkbox.checked = todo.done;
-    //add the checkbox to Li Element/liElement
+    // Add the checkbox to Li Element/liElement
     liElement.appendChild(checkbox);
 
-    //create an inner Text for liElement
+    // Create an inner Text for liElement
     const liText = document.createTextNode(todo.description);
-    //join liText with liElement
+    // Join liText with liElement
     liElement.append(liText);
 
-    //add liElement to list Element
+    // Add liElement to list Element
     list.appendChild(liElement);
-
-    // load from local storage
   });
 }
 
 render();
-// add new Todo
+
+// Add new Todo
 btn.addEventListener("click", function () {
-  //space be trimmed
+  // Space be trimmed
   const newToDoText = input.value.trim();
-  //checkin empty space
+  // Checkin empty space
   if (newToDoText != "") {
     const newTodo = {
       description: newToDoText,
@@ -81,8 +98,7 @@ btn.addEventListener("click", function () {
   }
 });
 
-//check is checkbox checked
-
+// Check if checkbox is checked
 list.addEventListener("change", (e) => {
   const checkbox = e.target;
   const liElement = checkbox.parentElement;
@@ -92,13 +108,19 @@ list.addEventListener("change", (e) => {
   localStorage.setItem("toDoItem", JSON.stringify(toDo));
 });
 
-function loadFromStorg() {
+function loadFromStorage() {
+  // load from storage
   const storedToDo = localStorage.getItem("toDoItem");
 
-  const readyFromStorg = JSON.parse(storedToDo);
-
   if (storedToDo) {
-    // add to toDo
-    toDo.todos = readyFromStorg.todos;
+    // check if !null
+    const readyFromStorage = JSON.parse(storedToDo);
+    // Add to toDo
+    toDo.todos = readyFromStorage.todos;
   }
 }
+
+//Event-Listener for radio button
+open.addEventListener("change", render);
+all.addEventListener("change", render);
+done.addEventListener("change", render);
