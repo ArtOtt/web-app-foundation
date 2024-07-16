@@ -6,19 +6,20 @@ const input = document.querySelector("#input");
 const open = document.querySelector("#open");
 const all = document.querySelector("#all");
 const done = document.querySelector("#done");
+const btnDel = document.querySelector("#btn-delete");
 
-const toDo = {
+const filters = document.querySelector("#filters"); // <form>
+
+let toDo = {
   todos: [
     { description: "First TO-Do", done: true },
     { description: "Second TO-Do", done: false },
   ],
 };
-
+loadFromStorage();
 function render() {
   // Clean the ul
   list.innerHTML = "";
-
-  loadFromStorage();
 
   // filter for done, open, all
   let filteredTodos;
@@ -63,7 +64,9 @@ function render() {
 render();
 
 // Add new Todo
-btn.addEventListener("click", function () {
+btn.addEventListener("click", function (e) {
+  //stop reloade page because in <form> btn = submint function and can trigger the button with ENTER
+  e.preventDefault();
   // Space be trimmed
   const newToDoText = input.value.trim();
   // Checkin empty space
@@ -74,27 +77,30 @@ btn.addEventListener("click", function () {
       id: Date.now() * Math.random(),
     };
 
-    let isDuplicate = false;
+    //let isDuplicate = false;
     for (let i = 0; i < toDo.todos.length; i++) {
       if (toDo.todos[i].description === newTodo.description) {
-        isDuplicate = true;
-        break;
+        //isDuplicate = true;
+        return;
+        //break;
       }
     }
     // Check for duplicate descriptions
-    if (!isDuplicate) {
-      // Add to toDo
-      toDo.todos.push(newTodo);
 
-      // Convert toDo to JSON
-      const jsn = JSON.stringify(toDo);
+    // Add to toDo
+    toDo.todos.push(newTodo);
 
-      // Save to Local storage
-      localStorage.setItem("toDoItem", jsn);
+    // Convert toDo to JSON
+    const jsn = JSON.stringify(toDo);
 
-      // Render the updated list
-      render();
-    }
+    // Save to Local storage
+    localStorage.setItem("toDoItem", jsn);
+
+    // Render the updated list
+    render();
+    //input clean
+    input.value = "";
+    input.focus();
   }
 });
 
@@ -121,6 +127,11 @@ function loadFromStorage() {
 }
 
 //Event-Listener for radio button
-open.addEventListener("change", render);
-all.addEventListener("change", render);
-done.addEventListener("change", render);
+filters.addEventListener("change", render);
+
+//remove done todos
+btnDel.addEventListener("click", function () {
+  toDo.todos = toDo.todos.filter((todo) => todo.done === false);
+  localStorage.setItem("toDoItem", JSON.stringify(toDo));
+  render();
+});

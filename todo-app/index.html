@@ -10,29 +10,31 @@
 
 <body>
 
-    <forms>
-        <p>Please select your favorite Web language:</p>
-          <input type="radio" id="all" name="la" value="all">
-          <label for="all">all todos</label><br>
-          <input type="radio" id="open" name="la" value="open">
-          <label for="open">open todos</label><br>
-          <input type="radio" id="done" name="la" value="done">
-          <label for="done">done todos</label>
+    <form id="filters">
+
+        <input type="radio" id="all" name="la" value="all">
+        <label for="all">all todos</label><br>
+        <input type="radio" id="open" name="la" value="open">
+        <label for="open">open todos</label><br>
+        <input type="radio" id="done" name="la" value="done">
+        <label for="done">done todos</label>
 
 
-        </form>
-
+    </form>
+    <form>
         <input id="input" type="text" id="newDescription">
         <button id="button">Add To-Do</button>
+    </form>
 
-        <ul id="list">
-            <li>was</li>
-            <li>das</li>
-        </ul>
 
-        <button>fbdbr</button>
+    <ul id="list">
+        <li>was</li>
+        <li>das</li>
+    </ul>
 
-        <script src="script.js"></script>
+    <button id="btn-delete">Remove done todos</button>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
