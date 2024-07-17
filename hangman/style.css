@@ -1,0 +1,49 @@
+html {
+  border: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+main {
+  width: 700px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headStatus {
+  font-size: 2.4rem;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  border-bottom: solid 1px black;
+}
+.extraBorder {
+  border-right: solid 1px black;
+  border-left: solid 1px black;
+}
+
+.letter {
+  font-size: 2rem;
+  width: 45px;
+  margin: 0.1rem;
+}
+
+.hidenWordContainer {
+  text-align: center;
+  letter-spacing: 0.2rem;
+  font-size: 2rem;
+}
