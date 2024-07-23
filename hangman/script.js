@@ -1,7 +1,7 @@
 const words = [
   "javascript",
   "html",
-  "CSS",
+  "css",
   "border",
   "function",
   "object",
@@ -12,89 +12,75 @@ const words = [
 ];
 
 //get random word from words
-const random = words[Math.floor(Math.random() * words.length)];
+let random;
 
-//disable a letter after clicking and get the cklicked letter
-// test for letter "a"
-const a = document.querySelector("#a");
-a.addEventListener("click", () => {
-  //btn unclickable
-  a.disabled = true;
-  //get the letter
-  const letterClicked = a.innerText;
+//state
+let result = [];
+//count fails
+let fails = 0;
+//restart game
+const btnRestart = document.querySelector("#btn-restart");
 
-  console.log(letterClicked);
+initGame();
+
+btnRestart.addEventListener("click", initGame);
+
+//add eventlistener to all letter buttons
+
+const allButtons = document.querySelectorAll(".letter");
+
+allButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    const letter = button.innerText.toLowerCase();
+    button.disabled = true;
+    check(letter);
+  });
 });
 
-// check if letter in words
+//init random word in "_"
 
-/*
-
-
-let words = ["javascript"];
-
-let split = words[0].split("");
-
-let result = [];
-
- 
-
- 
-
-function check(lett) {
-
-  // Wenn das result-Array noch leer ist, initialisieren wir es
-
+function initGame() {
+  render = words[Math.floor(Math.random() * words.length)];
+  fails = 0;
   if (result.length === 0) {
-
-    for (let i = 0; i < split.length; i++) {
-
-      if (!split[i].includes(lett)) {
-
-        result.push("_");
-
-      } else {
-
-        result.push(split[i]);
-
-      }
-
+    for (let i = 0; i < random.length; i++) {
+      result.push("_");
+    }
+  }
+  render();
+}
+// Wenn das result-Array bereits initialisiert ist, aktualisieren wir es
+function check(lett) {
+  if (!random.includes(lett)) {
+    fails++;
+    if (fails === 10) {
+      endGame();
     }
 
-  } else {
-
-    // Wenn das result-Array bereits initialisiert ist, aktualisieren wir es
-
-    for (let z = 0; z < split.length; z++) {
-
-      if (split[z] === lett && result[z] === "_") {
-
-        result[z] = lett;
-
-      }
-
-    }
-
+    render();
+    return;
   }
 
+  for (let i = 0; i < random.length; i++) {
+    if (random[i] === lett && result[i] === "_") {
+      result[i] = lett;
+    }
+  }
+  render();
 }
 
- 
+//render result
+function render() {
+  const container = document.querySelector(".hidenWordContainer");
+  //fails counter
+  const failsContainer = document.querySelector("#fails");
+  failsContainer.innerText = fails;
+  container.innerText = result.join("");
+}
 
-// Beispielaufrufe der Funktion check
+// game over screen function
 
-check("a");
-
- 
-
-console.log(result);
-
-check("j");
-
-console.log(result)
-
-check("v")
-
-console.log(result)
-
-*/
+function endGame() {
+  const endScreen = document.querySelector("#end-screen");
+  endScreen.hidden = false;
+}

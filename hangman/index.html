@@ -13,14 +13,16 @@
     <main>
         <header>
             <div class="headStatus">Status</div>
-            <div class="headStatus extraBorder">Fails: 0/10</div>
-            <div class="headStatus">New Game</div>
+            <div class="headStatus extraBorder">Fails: <span id="fails">0</span>/10</div>
+            <button class="headStatus" id="btn-restart">New Game</button>
         </header>
 
         <div class="hidenWordContainer">
             <h1>__________</h1>
         </div>
-
+        <div id="end-screen" hidden>
+            <h2>Game Over</h2>
+        </div>
 
 
 

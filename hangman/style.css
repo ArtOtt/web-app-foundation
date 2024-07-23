@@ -1,4 +1,5 @@
 html {
+  font-family: monospace;
   border: 0;
   margin: 0;
   box-sizing: border-box;
@@ -38,7 +39,7 @@ header {
 
 .letter {
   font-size: 2rem;
-  width: 45px;
+  width: 43px;
   margin: 0.1rem;
 }
 
@@ -46,4 +47,16 @@ header {
   text-align: center;
   letter-spacing: 0.2rem;
   font-size: 2rem;
+}
+
+#end-screen {
+  background-color: black;
+  color: red;
+  text-align: center;
+
+  padding-block: 4rem;
+  position: absolute;
+
+  left: 4rem;
+  right: 4rem;
 }
