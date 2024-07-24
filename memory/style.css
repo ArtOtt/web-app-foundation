@@ -79,3 +79,8 @@ main {
   color: white;
   transform: rotateY(180deg);
 }
+
+img {
+  max-width: 150%;
+  max-height: 140%;
+}
