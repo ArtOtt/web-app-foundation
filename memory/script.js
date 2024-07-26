@@ -1,15 +1,15 @@
 const cards = document.querySelectorAll(".card");
 
 //picture container
-const pics = [
+let pics = [
   "https://cdn.pixabay.com/photo/2024/04/21/14/13/pelican-8710717_1280.jpg",
-  "https://cdn.pixabay.com/photo/2024/06/19/05/37/animal8839173_1280.jpg",
+  "https://cdn.pixabay.com/photo/2017/03/16/10/00/animal-2148641_1280.jpg",
   "https://cdn.pixabay.com/photo/2023/09/28/21/22/highland-cattle-8282564_1280.jpg",
   "https://cdn.pixabay.com/photo/2016/03/30/08/24/peacock-1290248_1280.jpg",
   "https://cdn.pixabay.com/photo/2024/05/02/16/22/parrots-8735074_1280.jpg",
   "https://cdn.pixabay.com/photo/2024/02/18/15/22/swan-8581483_1280.jpg",
   "https://cdn.pixabay.com/photo/2024/04/21/14/13/pelican-8710717_1280.jpg",
-  "https://cdn.pixabay.com/photo/2024/06/19/05/37/animal8839173_1280.jpg",
+  "https://cdn.pixabay.com/photo/2017/03/16/10/00/animal-2148641_1280.jpg",
   "https://cdn.pixabay.com/photo/2023/09/28/21/22/highland-cattle-8282564_1280.jpg",
   "https://cdn.pixabay.com/photo/2016/03/30/08/24/peacock-1290248_1280.jpg",
   "https://cdn.pixabay.com/photo/2024/05/02/16/22/parrots-8735074_1280.jpg",
@@ -19,6 +19,60 @@ const pics = [
 // counter for click
 let countClick = 0;
 
+let twoCards = [];
+
+// remove the is-flipped class from all cards
+function remove() {
+  cards.forEach((card) => {
+    card.classList.remove("is-flipped");
+  });
+}
+
+const imgContainer = document.querySelectorAll(".flip-card-back img");
+
+//array with 12 numbers in random sequence
+
+let randomSequence = [];
+
+function memoryMix() {
+  while (randomSequence.length < pics.length) {
+    const rndInt = Math.floor(Math.random() * pics.length);
+    if (!randomSequence.includes(rndInt)) {
+      randomSequence.push(rndInt);
+    }
+  }
+}
+
+memoryMix();
+
+function distributeCards() {
+  for (let i = 0; i < pics.length; i++) {
+    //console.log(pics[randomSequence[i]]);
+    imgContainer[i].src = pics[randomSequence[i]];
+  }
+}
+
+//check match in flipped card src = the other flipped card src
+
+function checkMatch() {
+  cards.forEach((card) => {
+    if (card.classList.contains("is-flipped")) {
+      //twoCards.push(card.src)
+      const img = card.querySelector(".flip-card-back img");
+      twoCards.push(img.src);
+    }
+  });
+
+  if (twoCards[0] === twoCards[1]) {
+    twoCards.length = 0;
+    return console.log(true);
+  } else {
+    twoCards.length = 0;
+    return console.log(false);
+  }
+}
+
+distributeCards();
 // flip card but not more than 2
 cards.forEach((card) => {
   //add eventlistener to every btn
@@ -35,6 +89,7 @@ cards.forEach((card) => {
 
     // if countClick more than 2 than remove is-flipped from all cards
     if (countClick === 2) {
+      checkMatch();
       setTimeout(() => {
         remove();
         countClick = 0;
@@ -43,38 +98,9 @@ cards.forEach((card) => {
   });
 });
 
-// remove the is-flipped class from all cards
-function remove() {
-  cards.forEach((card) => {
-    card.classList.remove("is-flipped");
-  });
-}
-
-const imgContainer = document.querySelectorAll("img");
-
-//array with 12 numbers in random sequence
-
-let randomSequence = [];
-
-function memoryMix() {
-  for (let i = 0; i <= 100; i++) {
-    const rndInt = Math.floor(Math.random() * 12);
-    if (!randomSequence.includes(rndInt)) {
-      randomSequence.push(rndInt);
-    }
-  }
-}
-
-function distributeCards() {
-  for (let i = 0; i < pics.length; i++) {
-    //console.log(pics[randomSequence[i]]);
-    imgContainer[i].src = pics[randomSequence[i]];
-  }
-}
-memoryMix();
-distributeCards();
+console.log(twoCards);
 
 //join pic with container
-//console.log((imgContainer[0].src = pics[0]));
-console.log(randomSequence.length);
-console.log(pics.length);
+//console.log(twoCards);
+//console.log(randomSequence.length);
+//console.log(pics.length);
