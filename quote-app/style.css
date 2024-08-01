@@ -1,0 +1,9 @@
+.container {
+  background-color: aquamarine;
+  min-height: 150px;
+  padding: 2rem;
+}
+
+button {
+  margin: 3rem auto;
+}
